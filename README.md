@@ -315,7 +315,7 @@ I have posted how these file looks below with breif explaination.
     icesupport=true
     stunaddr=stun.l.google.com:19302
     ```
-###Create Certificates
+### Create Certificates
 Call the script as such:
 ```bash
 cd /usr/local/src/asterisk-13.17.2/contrib/scripts
@@ -386,7 +386,7 @@ res_format_attr_opus.so        Opus Format Attribute Module             1       
 ```
 
 ## <a name="demo-setup"></a>Running on Browser and Linphone
-###Setting up python server and running web based phone on Browser.
+### Setting up python server and running web based phone on Browser.
 1. Open `webrtc` folder inside the downloaded repo in the terminal.
 1. Install PIP, and dependencies
     ```bash
@@ -434,13 +434,13 @@ res_format_attr_opus.so        Opus Format Attribute Module             1       
     ```bash
     python webrtc.py
     ```
-####Run web phone on browser:
+#### Run web phone on browser:
 * Please open Chrome/Firefox
 * Change Ip of asterisk server in [https://192.168.33.10:8089/httpstatus](https://192.168.33.10:8089/httpstatus) and open in the browser. Then proceed to Https security warning.
 * Change Ip of the web server in [https://192.168.33.10:5000](https://192.168.33.10:5000) and open in the browser. Then proceed to Https security warning.
 * Open Igcognito mode to see various event triggered during the call session.
 
-###Configuring on Linphone.
+### Configuring on Linphone.
 * Download and install [Libphone](http://www.linphone.org/) if you have not installed yet.
 * Open Linphone
 * Goto **Options** > **Preferences** > **Manage Sip Account** > **Add**
@@ -448,7 +448,7 @@ res_format_attr_opus.so        Opus Format Attribute Module             1       
 * Enter *Sip Proxy Address: sip:3002@103.69.124.194* with your Ip.
 * You can call to `199` which will ring on your browser.
 
-#####Important Note:
+##### Important Note:
 > I have edited `static/js/SIPml-api.js` in line 2724, so that I can reduce the delay caused by `gathering the ICE candidates` in localhost.
 > ```javascript
 > this.o_pc = new window.RTCPeerConnection(null, this.o_media_constraints);
