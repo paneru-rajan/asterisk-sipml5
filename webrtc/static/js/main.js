@@ -1,6 +1,5 @@
-
 var sipStack;
-var isMuted = false; // store current status of audio mute
+var isMuted        = false; // store current status of audio mute
 var ongoing_session; // session to store incoming and outgoing calls
 var incomingCallEvent; // to get incomming call event
 ringTone.loop      = true;
@@ -22,18 +21,18 @@ var eventsListener = function (e) {
 
 function createSipStack() {
     sipStack = new SIPml.Stack({
-            realm:                 asteriskIp,
-            impi:                  asteriskUser,
-            impu:                  'sip:'+asteriskUser+'@'+asteriskIp,
-            password:              asteriskUserPass,
-            display_name:          asteriskUserName,
-            websocket_proxy_url:   'wss://'+asteriskIp+':8089/ws',
-            outbound_proxy_url:    'udp://'+asteriskIp+':5060',
+            realm:               asteriskIp,
+            impi:                asteriskUser,
+            impu:                'sip:' + asteriskUser + '@' + asteriskIp,
+            password:            asteriskUserPass,
+            display_name:        asteriskUserName,
+            websocket_proxy_url: 'wss://' + asteriskIp + ':8089/ws',
+            outbound_proxy_url:  'udp://' + asteriskIp + ':5060',
             //enable_rtcweb_breaker: false, // optional
-            ice_servers:           [{"url": "stun:stun.l.google.com:19302"}],
-            disable_video:         true,
-            events_listener:       {events: '*', listener: eventsListener},
-            sip_headers:           [// change the sip header if needed
+            ice_servers:         [{"url": "stun:stun.l.google.com:19302"}],
+            disable_video:       true,
+            events_listener:     {events: '*', listener: eventsListener},
+            sip_headers:         [// change the sip header if needed
                 {name: 'User-Agent', value: 'Browser voiceinn-v1.0.0.0'},
                 {name: 'Yipl', value: 'VoiceInn'}
             ]
@@ -79,7 +78,7 @@ var makeCall   = function (number) {
 var acceptCall = function (e) {
     var incoming_audio_configuration = {
         audio_remote:    document.getElementById('audio-remote'),
-        expires:200,
+        expires:         200,
         events_listener: {
             events: '*', listener: function (e) {
                 console.log('%c In = >' + e.type, 'font-size:5em');
@@ -149,7 +148,11 @@ $('#inCallButtons').on('click', '.dialpad-char', function (e) {
     ongoing_session.dtmf(value.toString());
 });
 window.onbeforeunload = function (event) {
-    if (ongoing_session) {
-        sipStack.stop();
-    }
+    return false;
 };
+setInterval(function () {
+    if (sipStack.o_stack.e_state !== 1) {
+        console.log('%c Raaajan', 'font-size:5em');
+        sipStack.start();
+    }
+}, 1000);

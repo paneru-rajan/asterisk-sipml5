@@ -7,7 +7,12 @@ This is the complete guide to install [Sipml5](https://www.doubango.org/sipml5/)
 
 These instructions will get you a copy of the project up and be running on your local machine for development and testing purposes. I have stuck in on several places, but this will go smoothly if you follow the steps carefully.
 
-I have modified the default js of sipml5 in order to avoid stun server lookup in localhost. That might need to be modified in future and is explained Here.
++ I have modified the default js of sipml5 in order to avoid stun server lookup in localhost. That might need to be modified in future and is explained [Here](#imp_note).
+
++  We need to used wss, to work with webrtc in Chrome, however, Fifrefox `Version 56.0` seems working without https
+    ```text
+    [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
+    ```
 
 Please read carefully, so you can comprehend all. I have posted all [references](#acknowledgment).
 
@@ -448,7 +453,7 @@ res_format_attr_opus.so        Opus Format Attribute Module             1       
 * Enter *Sip Proxy Address: sip:3002@103.69.124.194* with your Ip.
 * You can call to `199` which will ring on your browser.
 
-##### Important Note:
+##### <a name="imp_note"></a>Important Note:
 > I have edited `static/js/SIPml-api.js` in line 2724, so that I can reduce the delay caused by `gathering the ICE candidates` in localhost.
 > ```javascript
 > this.o_pc = new window.RTCPeerConnection(null, this.o_media_constraints);
